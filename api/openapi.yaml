@@ -1,0 +1,3840 @@
+openapi: 3.0.0
+info:
+  title: Simple Inventory API
+  description: This is a simple API
+  contact:
+    email: you@your-company.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/telkomdev-doc/MyCarrierGetSupport/1.0.0
+  description: SwaggerHub API Auto Mocking
+tags:
+- name: ticket
+  description: for data detail ticket
+paths:
+  /tickets/ticket/v2/internal:
+    get:
+      tags:
+      - ticket
+      summary: filter status
+      operationId: ticketsTicketV2InternalGET
+      parameters:
+      - name: page
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+      - name: size
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+      - name: status
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: onprogress/done
+      - name: sort
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: asc/desc
+      - name: sortBy
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: ticketId/senderTypeName/ttr/ttrAgent
+      - name: custAccNum
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: symtompsName
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: search
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: ticketId/senderTypeName/symtompsName/custAccName
+      - name: startDate
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: 2020-04-08T14:48:00.000Z
+      - name: endDate
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: 2020-04-08T14:48:00.000Z
+      responses:
+        "200":
+          description: success for filter
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/filterTickets'
+        "400":
+          description: invalid filter
+      x-swagger-router-controller: Ticket
+  /tickets/ticket/v2/internal/{ticketId}:
+    get:
+      tags:
+      - ticket
+      summary: detail ticket internal
+      operationId: ticketsTicketV2InternalTicketIdGET
+      parameters:
+      - name: ticketId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: success for get detail ticket
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/detailTicketInternal'
+        "400":
+          description: invalid get detail ticket
+      x-swagger-router-controller: Ticket
+    put:
+      tags:
+      - ticket
+      summary: function for update body/subject email
+      description: for update body/subject email
+      operationId: ticketsTicketV2InternalTicketIdPUT
+      parameters:
+      - name: ticketId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        description: update status
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/body'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateStatus'
+            examples:
+              ticketAnalyze:
+                summary: Ticket Analyze
+                value:
+                  status: ticket analyze
+                  note: testing api
+                  from: Telkom Digital Solutions<admintds@telkom.co.id>
+                  to: denahardian7@gmail.com
+              ticketAnalyzeRejected:
+                summary: Ticket Analyze Rejected
+                value:
+                  status: rejected
+                  rejectReason: test reject
+              customerReview:
+                summary: Customer Review
+                value:
+                  status: customer review
+              close:
+                summary: Close
+                value:
+                  status: close
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responsesUpdateStatus'
+        "400":
+          description: NOK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400updateBodySubjectEmail'
+        "401":
+          description: NOK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401updateBodySubjectEmail'
+      x-swagger-router-controller: Ticket
+  /tickets/ticket/v2/internal/listFilterCustomer:
+    get:
+      tags:
+      - ticket
+      summary: filter customer
+      operationId: filterCustomer
+      responses:
+        "200":
+          description: success for filter customer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/filterCustomer'
+        "400":
+          description: invalid filter
+      x-swagger-router-controller: Ticket
+  /tickets/ticket/internal/downloadListTicketFault:
+    post:
+      tags:
+      - ticket
+      summary: download list ticket
+      description: download list ticket
+      operationId: ticketsTicketInternalDownloadListTicketFaultPOST
+      parameters:
+      - name: page
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+      - name: size
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+      - name: status
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: onprogress/done
+      - name: sort
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: asc/desc
+      - name: sortBy
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: ticketId/senderTypeName/dll
+      - name: custAccntNum
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: symptomId
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: startDate
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: 2020-04-08T14:48:00.000Z
+      - name: endDate
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: 2020-04-08T14:48:00.000Z
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/downloadListTicketFault'
+        required: true
+      responses:
+        "200":
+          description: success for download
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responsesdownloadListTicketFault'
+        "400":
+          description: invalid download
+      x-swagger-router-controller: Ticket
+  /tickets/ticket/v1/notifInternal:
+    get:
+      tags:
+      - ticket
+      summary: notif internal
+      operationId: ticketsTicketV1NotifInternalGET
+      parameters:
+      - name: page
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+      - name: size
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: success for detail notif internal
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notifInternal'
+        "400":
+          description: invalid notif internal
+      x-swagger-router-controller: Ticket
+  /tickets/ticket/v2:
+    get:
+      tags:
+      - ticket customer
+      summary: ticket customer
+      operationId: ticketsTicketV2GET
+      parameters:
+      - name: page
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+      - name: size
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+      - name: status
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: onprogress/done
+      - name: sort
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: asc/desc
+      - name: search
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: ticketId/senderTypeName/symptomId/custAccntName
+      - name: symptomId
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: All/Delivery Report/SMS Fault/Link connectivity
+      responses:
+        "200":
+          description: Success get list ticket
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/customerTickets'
+        "400":
+          description: invalid filter
+      x-swagger-router-controller: TicketCustomer
+    post:
+      tags:
+      - ticket customer
+      summary: create new product
+      description: create new product
+      operationId: ticketsTicketV2POST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createTicket'
+            examples:
+              LBA:
+                summary: LBA
+                value:
+                  applicationType: "2"
+                  categoryId: E003
+                  linkCategoryTypeId: "3"
+                  senderTypeId: ""
+                  senderId: 64
+                  symptomId: LBA
+                  operatorTypeId: "1"
+                  description: '-'
+                  picName: Dian
+                  picPhoneNumber: "082295758290"
+                  picEmail: 0856dian@gmail.com
+                  troubleOccurs:
+                  - dateTime: 2020-06-15T08:12:28.019Z
+                    file:
+                    - fileUrl: http://minio-assurance-dev.telkomdigitalsolution.co/tdscustomerpublic/attach-lba-assurance/Jatis/[Kusonime]
+                        Yuru Camp △ BD - 03.mkv_snapshot_18.02_[2020.01.16_07.33.04].jpg
+                      fileName: '[Kusonime] Yuru Camp △ BD - 03.mkv_snapshot_18.02_[2020.01.16_07.33.04].jpg'
+              Sender Id:
+                summary: senderId
+                value:
+                  serviceCategory: Sender ID
+                  troubleType:
+                  - Tidak menerima DLR
+                  - Respon di DLR Undelivered
+                  - SMS Masuk namun delay diterima pelanggan
+                  - Pelanggan merasa tidak menerima SMS
+                  - Mendapat respon error dari Bulk Apps
+                  - Lainnya
+                  - LBA
+                  smsCategory: "2"
+                  applicationType: 2
+                  linkCategoryTypeId: "2"
+                  provider: Telkomsel
+                  senderTypeId: "2"
+                  operationTypeId: "1"
+                  description: Test Sms Fault
+                  picName: DDS Admin
+                  picPhoneNumber: "0812345687"
+                  picEmail: admin@ddstelkom.co
+                  symptomId: SMSFAULT
+                  troubleOccurs:
+                  - bNumber: "0811234567"
+                    timeStamp: 2019-12-16T08:09:09.034Z
+                    logRequest: ""
+                    respond: ""
+              Link:
+                summary: link
+                value:
+                  troubleType:
+                  - Tidak menerima DLR
+                  - Respon di DLR Undelivered
+                  - SMS Masuk namun delay diterima pelanggan
+                  - Pelanggan merasa tidak menerima SMS
+                  - Mendapat respon error dari Bulk Apps
+                  - Lainnya
+                  - LBA
+                  serviceCategory: Link
+                  applicationType: 2
+                  symptomId: Link Connectivity
+                  ipCustomer: 192.168.10.1
+                  logPingTrace: ""
+                  description: ""
+                  picName: ""
+                  picPhoneNumber: ""
+                  picEmail: ""
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responsesCreateTicket'
+        "400":
+          description: NOK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400Create'
+        "401":
+          description: NOK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401Create'
+      x-swagger-router-controller: TicketCustomer
+  /tickets/ticket/v1/notif:
+    get:
+      tags:
+      - ticket customer
+      summary: notif customer
+      operationId: ticketsTicketV1NotifGET
+      parameters:
+      - name: page
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+      - name: size
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+      - name: type
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notifTicketAssuranceCustomer'
+              examples:
+                ticket-assurance-customer:
+                  summary: notif ticket-assurance-customer
+                  value:
+                    success: true
+                    code: 200
+                    message: successfully get notif ticket-all-customer
+                    data:
+                    - notificationId: 519abe22-d6e9-4cf0-a3c0-078965a3817b
+                      date: 2020-06-15T07:05:20.714Z
+                      type: ticket-assurance-customer
+                      title: Ticket Internal Request
+                      message: 'Your Ticket INA-1592121889341 is being processed.
+                        Trouble Type : Delivery Report'
+                      data:
+                        ticketId: INA-1592121889341
+                        symptomId: Delivery Report
+                        linkCategoryTypeName: Sender Id
+                        senderTypeName: eatigo
+                        status: customerreview
+                        detailText: ""
+                      custAccntNum: 1280510
+                      isRead: false
+                    - notificationId: f8d77a20-0559-45f3-98cf-01a7b44aad67
+                      date: 2020-06-16T01:47:11.400Z
+                      type: ticket-assurance-customer
+                      title: Ticket Internal Request
+                      message: 'Your Ticket INA-1592270595508 is being processed.
+                        Trouble Type : Link Connectivity'
+                      data:
+                        ticketId: INA-1592270595508
+                        symptomId: Link Connectivity
+                        linkCategoryTypeName: Link Connectivity
+                        senderTypeName: ""
+                        status: onprogress
+                        detailText: ""
+                      custAccntNum: 1280510
+                      isRead: false
+                    meta:
+                      page: 1
+                      size: 5
+                      totalData: 554
+                      totalPage: 111
+                      unclickNotif: true
+                      unreadNotif: 485
+                ticket-all-customer:
+                  summary: notif ticket-all-customer
+                  value:
+                    success: true
+                    code: 200
+                    message: successfully get notif ticket-all-customer
+                    data:
+                    - notificationId: 47d8a977-fcf2-435b-8320-61963c1a199c
+                      date: 2020-06-15T07:05:20.713Z
+                      type: ticket-all-customer
+                      title: Ticket Internal Request
+                      message: 'Your Ticket INA-1591856763611 is being processed.
+                        Trouble Type : Link Connectivity'
+                      data:
+                        ticketId: INA-1591856763611
+                        symptomId: Link Connectivity
+                        linkCategoryTypeName: Link Connectivity
+                        senderTypeName: ""
+                        status: onprogress
+                        detailText: ""
+                      custAccntNum: 1280510
+                      isRead: false
+                    - notificationId: f202ea55-162b-42ba-9297-40799908fffd
+                      date: 2020-06-19T09:06:43.548Z
+                      type: ticket-all-customer
+                      title: Ticket Internal Request
+                      message: 'Your Ticket INA-1592549012210 is being processed.
+                        Trouble Type : Delivery Report'
+                      data:
+                        ticketId: INA-1592549012210
+                        symptomId: Delivery Report
+                        linkCategoryTypeName: LBA
+                        senderTypeName: Easycash
+                        status: customerreview
+                        detailText: ""
+                      custAccntNum: 1280510
+                      isRead: false
+                    meta:
+                      page: 1
+                      size: 5
+                      totalData: 554
+                      totalPage: 111
+                      unclickNotif: true
+                      unreadNotif: 485
+        "401":
+          description: invalid notif
+      x-swagger-router-controller: TicketCustomer
+  /tickets/ticket/v2/{ticketId}:
+    get:
+      tags:
+      - ticket customer
+      summary: detail list ticket customer
+      operationId: detailListTicketCustomer
+      parameters:
+      - name: ticketId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: success for show detail list ticket customer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/detailListTicketCustomer'
+        "400":
+          description: invalid list ticket
+      x-swagger-router-controller: TicketCustomer
+  /tickets/ticket/listTroubleType:
+    get:
+      tags:
+      - ticket customer
+      summary: list trouble type
+      operationId: listTroubleType
+      responses:
+        "200":
+          description: success for show detail list ticket customer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/listTroubleType'
+        "400":
+          description: invalid list ticket
+      x-swagger-router-controller: TicketCustomer
+  /tickets/ticket/uploadFileAssurance:
+    post:
+      tags:
+      - ticket customer
+      summary: upload file lba assurance customer
+      description: upload file lba assurance customer
+      operationId: ticketsTicketUploadFileAssurancePOST
+      parameters:
+      - name: fileType
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: jpg/jpeg/png
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/uploadFileAssurance'
+        required: true
+      responses:
+        "200":
+          description: success for upload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responsesuploadFileAssurance'
+        "400":
+          description: invalid upload
+      x-swagger-router-controller: TicketCustomer
+  /tickets/ticket/removeFileAssurance:
+    post:
+      tags:
+      - ticket customer
+      summary: remove file lba assurance customer
+      description: remove file lba assurance customer
+      operationId: ticketsTicketRemoveFileAssurancePOST
+      parameters:
+      - name: fileUrl
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: jpg/jpeg/png
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/removeFileAssurance'
+        required: true
+      responses:
+        "200":
+          description: success for upload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responsesremoveFileAssurance'
+        "400":
+          description: invalid remove
+      x-swagger-router-controller: TicketCustomer
+  /tickets/ticket/updateFileAssurance:
+    post:
+      tags:
+      - ticket customer
+      summary: update file lba assurance customer
+      description: remove file lba assurance customer
+      operationId: ticketsTicketUpdateFileAssurancePOST
+      parameters:
+      - name: file
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: jpg/jpeg/png
+      - name: fileUrl
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/updateFileAssurance'
+        required: true
+      responses:
+        "200":
+          description: success for upload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responsesupdateFileAssurance'
+        "400":
+          description: invalid update
+      x-swagger-router-controller: TicketCustomer
+  /tickets/fault/v1/ticket:
+    get:
+      tags:
+      - general product
+      summary: list ticket general product
+      operationId: ticketsFaultV1TicketGET
+      parameters:
+      - name: page
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+      - name: size
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+      - name: sort
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: asc/desc
+      - name: status
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: onprogress/done
+      responses:
+        "200":
+          description: Success get list ticket
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/generalProductListTickets'
+        "400":
+          description: invalid filter
+      x-swagger-router-controller: GeneralProduct
+    post:
+      tags:
+      - general product
+      summary: submit ticket
+      description: submit ticket
+      operationId: ticketsFaultV1TicketPOST
+      parameters:
+      - name: ProductId
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: serviceId
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: address
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: contactName
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: mobile
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: secondaryContactName
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: secondaryMobile
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: description
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: productName
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/submitTicket'
+        required: true
+      responses:
+        "200":
+          description: success for upload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responsesSubmitTicket'
+        "400":
+          description: NOK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400submitTicket'
+      x-swagger-router-controller: GeneralProduct
+  /tickets/fault/v1/ticket/history/{noTicket}:
+    get:
+      tags:
+      - general product
+      summary: history ticket
+      operationId: ticketsFaultV1TicketHistoryNoTicketGET
+      parameters:
+      - name: noTicket
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Success get history ticket
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/historyTicket'
+        "400":
+          description: invalid filter
+      x-swagger-router-controller: GeneralProduct
+  /tickets/fault/v1/ticket/cekTicketClosed:
+    post:
+      tags:
+      - general product
+      summary: cek ticket closed
+      description: cek ticket closed
+      operationId: ticketsFaultV1TicketCekTicketClosedPOST
+      parameters:
+      - name: username
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/cekTicketClosed'
+        required: true
+      responses:
+        "200":
+          description: success for upload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responsescekTicketClosed'
+        "400":
+          description: NOK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400cekTicketClosed'
+      x-swagger-router-controller: GeneralProduct
+  /tickets/fault/v1/create-nps:
+    post:
+      tags:
+      - general product
+      summary: create nps
+      description: create nps
+      operationId: ticketsFaultV1Create_npsPOST
+      parameters:
+      - name: ticketId
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: ticketNumber
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: tkPuas1
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+      - name: rateScale
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+      - name: comment
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: troubleHeadline
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: mostValue
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: serviceId
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createNps'
+        required: true
+      responses:
+        "200":
+          description: success for upload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responsesCreateNps'
+        "400":
+          description: NOK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400createNps'
+      x-swagger-router-controller: GeneralProduct
+  /tickets/fault/v1/cek-nps:
+    get:
+      tags:
+      - general product
+      summary: cek nps tiket complete
+      operationId: ticketsFaultV1Cek_npsGET
+      responses:
+        "200":
+          description: Success cek nps tiket complete
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CekNps'
+        "400":
+          description: invalid filter
+      x-swagger-router-controller: GeneralProduct
+  /tickets/fault/v1/ticket/{referenceId}:
+    put:
+      tags:
+      - general product
+      summary: update ticket
+      description: update ticket
+      operationId: ticketsFaultV1TicketReferenceIdPUT
+      parameters:
+      - name: referenceId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        description: update status
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/body_1'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/bodyUpdateTicket'
+            examples:
+              approved:
+                summary: Approved
+                value:
+                  status: APPROVED
+                  ticketNumber: IN56428841
+                  trackId: MY-1569384802350938
+              queued:
+                summary: Queued
+                value:
+                  status: QUEUED
+                  note: nothing 1
+              backend:
+                summary: Backend
+                value:
+                  status: BACKEND
+                  note: nothing 2
+              finalcheck:
+                summary: Finalcheck
+                value:
+                  status: FINALCHECK
+                  note: nothing 3
+              resolved:
+                summary: Resolved
+                value:
+                  status: RESOLVED
+                  note: nothing 4
+              salamsim:
+                summary: Salamsim
+                value:
+                  status: SALAMSIM
+                  note: nothing 3
+              closed:
+                summary: Closed
+                value:
+                  status: CLOSED
+                  note: nothing closed
+              reject:
+                summary: Reject
+                value:
+                  status: REJECT
+                  note: ticket rejected
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/200updateTicket'
+        "400":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400updateTicket'
+        "401":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/401updateTicket'
+      x-swagger-router-controller: GeneralProduct
+components:
+  schemas:
+    filterTickets:
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/EntryList'
+        meta:
+          type: object
+          example:
+            page: 1
+            size: 10
+            totalPages: 1
+            totalData: 2
+        code:
+          type: string
+          example: "200"
+        message:
+          type: string
+          example: berhasil
+      example:
+        code: "200"
+        data:
+        - applicationType: "2"
+          senderTypeName: VerifyID
+          endDate: 2020-04-12T10:15:57.816Z
+          description: test
+          custAccNum: "0004704778"
+          picName: NameFull
+          createdAt: 2020-06-19T01:23:10.489Z
+          rejectReason: rejectReason
+          picEmail: test@gmail.com
+          ttrAgent: 0 (Hour)
+          custAccName: IMS
+          updatedAt: 2020-06-19T01:23:10.489Z
+          operatorTypeId: "4"
+          senderTypeId: senderTypeId
+          picPhoneNumber: "08121121"
+          userId: "30000040703662"
+          troubleOccurs:
+          - bNumber: "081233121212"
+            dateTime: 2020-06-15T01:22:56.639Z
+            logRequest: success
+            respond: success
+          ttr: 1.00 (hour)
+          symtompsName: Tes Lainnya
+          worklog:
+          - step: 0
+            status: checking
+            dateTime: 2020-06-19T01:23:10.491Z
+            note: Tiket sedang di Analisa
+            createdBy: IMS
+          - step: 1
+            status: onprogress
+            dateTime: 2020-02-25T04:43:22.019Z
+            note: Tiket Sedang di Tangani
+            createdBy: ""
+          - step: 2
+            status: customerreview
+            dateTime: 2020-06-04T14:12:13.882Z
+          - step: 3
+            status: completed
+          category: Sender Id
+          ticketId: INA-1592529790471
+          categoryId: E003
+          startDate: 2020-04-08T10:15:57.816Z
+          status: checking
+        - applicationType: "2"
+          senderTypeName: VerifyID
+          endDate: 2020-04-12T10:15:57.816Z
+          description: test
+          custAccNum: "0004704778"
+          picName: NameFull
+          createdAt: 2020-06-19T01:23:10.489Z
+          rejectReason: rejectReason
+          picEmail: test@gmail.com
+          ttrAgent: 0 (Hour)
+          custAccName: IMS
+          updatedAt: 2020-06-19T01:23:10.489Z
+          operatorTypeId: "4"
+          senderTypeId: senderTypeId
+          picPhoneNumber: "08121121"
+          userId: "30000040703662"
+          troubleOccurs:
+          - bNumber: "081233121212"
+            dateTime: 2020-06-15T01:22:56.639Z
+            logRequest: success
+            respond: success
+          ttr: 1.00 (hour)
+          symtompsName: Tes Lainnya
+          worklog:
+          - step: 0
+            status: checking
+            dateTime: 2020-06-19T01:23:10.491Z
+            note: Tiket sedang di Analisa
+            createdBy: IMS
+          - step: 1
+            status: onprogress
+            dateTime: 2020-02-25T04:43:22.019Z
+            note: Tiket Sedang di Tangani
+            createdBy: ""
+          - step: 2
+            status: customerreview
+            dateTime: 2020-06-04T14:12:13.882Z
+          - step: 3
+            status: completed
+          category: Sender Id
+          ticketId: INA-1592529790471
+          categoryId: E003
+          startDate: 2020-04-08T10:15:57.816Z
+          status: checking
+        success: true
+        meta:
+          page: 1
+          size: 10
+          totalPages: 1
+          totalData: 2
+        message: berhasil
+    EntryList:
+      type: object
+      properties:
+        custAccNum:
+          type: string
+          example: "0004704778"
+        custAccName:
+          type: string
+          example: IMS
+        ticketId:
+          type: string
+          example: INA-1592529790471
+        userId:
+          type: string
+          example: "30000040703662"
+        applicationType:
+          type: string
+          example: "2"
+        senderTypeName:
+          type: string
+          example: VerifyID
+        operatorTypeId:
+          type: string
+          example: "4"
+        categoryId:
+          type: string
+          example: E003
+        category:
+          type: string
+          example: Sender Id
+        senderTypeId:
+          type: string
+        rejectReason:
+          type: string
+        troubleOccurs:
+          type: object
+          example:
+          - bNumber: "081233121212"
+            dateTime: 2020-06-15T01:22:56.639Z
+            logRequest: success
+            respond: success
+        worklog:
+          type: object
+          example:
+          - step: 0
+            status: checking
+            dateTime: 2020-06-19T01:23:10.491Z
+            note: Tiket sedang di Analisa
+            createdBy: IMS
+          - step: 1
+            status: onprogress
+            dateTime: 2020-02-25T04:43:22.019Z
+            note: Tiket Sedang di Tangani
+            createdBy: ""
+          - step: 2
+            status: customerreview
+            dateTime: 2020-06-04T14:12:13.882Z
+          - step: 3
+            status: completed
+        status:
+          type: string
+          example: checking
+        description:
+          type: string
+          example: test
+        picName:
+          type: string
+          example: NameFull
+        picPhoneNumber:
+          type: string
+          example: "08121121"
+        picEmail:
+          type: string
+          example: test@gmail.com
+        symtompsName:
+          type: string
+          example: Tes Lainnya
+        createdAt:
+          type: string
+          example: 2020-06-19T01:23:10.489Z
+        updatedAt:
+          type: string
+          example: 2020-06-19T01:23:10.489Z
+        ttrAgent:
+          type: string
+          example: 0 (Hour)
+        ttr:
+          type: string
+          example: 1.00 (hour)
+        startDate:
+          type: string
+          example: 2020-04-08T10:15:57.816Z
+        endDate:
+          type: string
+          example: 2020-04-12T10:15:57.816Z
+      example:
+        applicationType: "2"
+        senderTypeName: VerifyID
+        endDate: 2020-04-12T10:15:57.816Z
+        description: test
+        custAccNum: "0004704778"
+        picName: NameFull
+        createdAt: 2020-06-19T01:23:10.489Z
+        rejectReason: rejectReason
+        picEmail: test@gmail.com
+        ttrAgent: 0 (Hour)
+        custAccName: IMS
+        updatedAt: 2020-06-19T01:23:10.489Z
+        operatorTypeId: "4"
+        senderTypeId: senderTypeId
+        picPhoneNumber: "08121121"
+        userId: "30000040703662"
+        troubleOccurs:
+        - bNumber: "081233121212"
+          dateTime: 2020-06-15T01:22:56.639Z
+          logRequest: success
+          respond: success
+        ttr: 1.00 (hour)
+        symtompsName: Tes Lainnya
+        worklog:
+        - step: 0
+          status: checking
+          dateTime: 2020-06-19T01:23:10.491Z
+          note: Tiket sedang di Analisa
+          createdBy: IMS
+        - step: 1
+          status: onprogress
+          dateTime: 2020-02-25T04:43:22.019Z
+          note: Tiket Sedang di Tangani
+          createdBy: ""
+        - step: 2
+          status: customerreview
+          dateTime: 2020-06-04T14:12:13.882Z
+        - step: 3
+          status: completed
+        category: Sender Id
+        ticketId: INA-1592529790471
+        categoryId: E003
+        startDate: 2020-04-08T10:15:57.816Z
+        status: checking
+    detailTicketInternal:
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: object
+          example:
+            ticketId: INA-1591279228478
+            userId: 37002443663
+            applicationType: 2
+            senderTypeName: ""
+            operatorTypeName: ""
+            categoryId: E003
+            category: Link Connectivity
+            worklog:
+              type: object
+              example:
+              - dateTime: 2020-06-04T14:00:28.490Z
+                note: Tiket sedang di Analisa
+                createdBy: Mitracomm Ekasarana
+                step: 0
+                status: checking
+              - dateTime: 2020-06-04T14:11:52.858Z
+                note: Tiket Sedang di Tangani
+                createdBy: occ
+                step: 1
+                status: onprogress
+              - dateTime: 2020-06-04T14:12:13.882Z
+                note:
+                  type: array
+                  example:
+                  - Teknisi kurang responsif
+                  - test
+                createdBy: occ
+                rating:
+                  type: object
+                  example:
+                    dateTime: 2020-06-09T18:00:18.671Z
+                    nik: ""
+                    fullName: Mitracomm Ekasarana
+                    message:
+                      type: array
+                      example:
+                      - Teknisi kurang responsif
+                      - test
+                    value: 6
+                step: 2
+                status: customerreview
+              - dateTime: 2020-06-09T18:00:18.671Z
+                note: Gangguan sudah kami tangani, terima kasih atas laporannya. Silahkan
+                  cek attachment dibawah sebagai dokumentasi perbaikan
+                createdBy: Mitracomm Ekasarana
+                step: 3
+                status: completed
+            status: completed
+            description: uilhasdhl
+            picName: dena
+            picPhoneNumber: "082116515155"
+            picEmail: dena@gmail.com
+            symtompsName: Link Connectivity
+            custAccName: Mitracomm Ekasarana
+            custAccNum: "0004704779"
+            createdAt: 2020-06-04T14:00:28.486Z
+            troubleOccursLink:
+              type: object
+              example:
+                logPingTrace: ajkhsdajksdh
+                ipCustomer: 192.168l.1.135
+            evidenceAttachment:
+              type: object
+              example:
+                ticketId: INA-1591279228478
+                fileName: minio-assurance-dev.telkomdigitalsolution.co/tdscustomerpublic/evidence-attachment-ticket/96b40899-4b66-41fa-a494-b6b88bbb9742-Formulir-Permohonan-Catatan-Sipil_2020.pdf
+                fileUrl: http://minio-assurance-dev.telkomdigitalsolution.co/tdscustomerpublic/evidence-attachment-ticket/c297fc84-e29e-4b6f-b111-0a371ee9c606-3.pdf
+                fileType: pdf
+                evidenceToCustomer: evi
+        message:
+          type: string
+          example: Success get list detail ticket internal
+        code:
+          type: string
+          example: "200"
+      example:
+        code: "200"
+        data:
+          ticketId: INA-1591279228478
+          userId: 37002443663
+          applicationType: 2
+          senderTypeName: ""
+          operatorTypeName: ""
+          categoryId: E003
+          category: Link Connectivity
+          worklog:
+            type: object
+            example:
+            - dateTime: 2020-06-04T14:00:28.490Z
+              note: Tiket sedang di Analisa
+              createdBy: Mitracomm Ekasarana
+              step: 0
+              status: checking
+            - dateTime: 2020-06-04T14:11:52.858Z
+              note: Tiket Sedang di Tangani
+              createdBy: occ
+              step: 1
+              status: onprogress
+            - dateTime: 2020-06-04T14:12:13.882Z
+              note:
+                type: array
+                example:
+                - Teknisi kurang responsif
+                - test
+              createdBy: occ
+              rating:
+                type: object
+                example:
+                  dateTime: 2020-06-09T18:00:18.671Z
+                  nik: ""
+                  fullName: Mitracomm Ekasarana
+                  message:
+                    type: array
+                    example:
+                    - Teknisi kurang responsif
+                    - test
+                  value: 6
+              step: 2
+              status: customerreview
+            - dateTime: 2020-06-09T18:00:18.671Z
+              note: Gangguan sudah kami tangani, terima kasih atas laporannya. Silahkan
+                cek attachment dibawah sebagai dokumentasi perbaikan
+              createdBy: Mitracomm Ekasarana
+              step: 3
+              status: completed
+          status: completed
+          description: uilhasdhl
+          picName: dena
+          picPhoneNumber: "082116515155"
+          picEmail: dena@gmail.com
+          symtompsName: Link Connectivity
+          custAccName: Mitracomm Ekasarana
+          custAccNum: "0004704779"
+          createdAt: 2020-06-04T14:00:28.486Z
+          troubleOccursLink:
+            type: object
+            example:
+              logPingTrace: ajkhsdajksdh
+              ipCustomer: 192.168l.1.135
+          evidenceAttachment:
+            type: object
+            example:
+              ticketId: INA-1591279228478
+              fileName: minio-assurance-dev.telkomdigitalsolution.co/tdscustomerpublic/evidence-attachment-ticket/96b40899-4b66-41fa-a494-b6b88bbb9742-Formulir-Permohonan-Catatan-Sipil_2020.pdf
+              fileUrl: http://minio-assurance-dev.telkomdigitalsolution.co/tdscustomerpublic/evidence-attachment-ticket/c297fc84-e29e-4b6f-b111-0a371ee9c606-3.pdf
+              fileType: pdf
+              evidenceToCustomer: evi
+        success: true
+        message: Success get list detail ticket internal
+    updateStatus:
+      type: object
+      properties:
+        status:
+          type: string
+          example: ticket analyze
+        note:
+          type: string
+          example: testing api
+        from:
+          type: string
+          example: Telkom Digital Solutions<admintds@telkom.co.id>
+        to:
+          type: string
+          example: denahardian7@gmail.com
+    responsesUpdateStatus:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          $ref: '#/components/schemas/responsesUpdateStatus_data'
+      example:
+        data:
+          applicationType: "2"
+          senderTypeName: OVO
+          ipWan: ipWan
+          operatorTypeName: Telkomsel
+          description: skldfskljfkls
+          updateAt: 2020-03-11T08:09:09.034Z
+          picName: GLE
+          symptomId: SMSFAULT
+          linkCategoryTypeName: Reguler
+          createdAt: 2020-03-09T06:10:31.987Z
+          senderId: "158"
+          rejectReason: rejectReason
+          picEmail: asdasdasd@gmail.com
+          custAccntNum: "1280511"
+          updateBy: occ
+          evidence_attachment: '{"ticketId":"INA-1591075407221","fileName":"c297fc84-e29e-4b6f-b111-0a371ee9c606-3.pdf","fileUrl":"http://minio-assurance-dev.telkomdigitalsolution.co/tdscustomerpublic/evidence-attachment-ticket/c297fc84-e29e-4b6f-b111-0a371ee9c606-3.pdf","fileType":"pdf","evidenceToCustomer":"evi"}'
+          nipnas: "3000001234"
+          id: 5e65ddd775faef0014f7ac97
+          serviceId: serviceId
+          updatedAt: 2020-03-09T06:10:31.987Z
+          serviceLocation: serviceLocation
+          logPingTrace: logPingTrace
+          linkCategoryTypeId: "2"
+          operatorTypeId: "1"
+          senderTypeId: senderTypeId
+          picPhoneNumber: "082116515155"
+          serviceName: serviceName
+          userId: "30000012343661"
+          ipCustomer: ipCustomer
+          ticketNossa: ticketNossa
+          troubleOccurs:
+            bNumber: "082116515155"
+            timeStamp: 2020-03-08T06:10:13.744Z
+            logRequest: aksjdkajsd
+            respond: akjdkajdklajsdkjlakjsdlkajsd
+          complaint: complaint
+          ticketPublish: {}
+          worklog:
+          - step: 0
+            status: checking
+            timeStamp: 2020-03-09T06:10:31.989Z
+            note: Tiket sedang di Analisa
+            createdBy: MDM
+          - step: 1
+            status: onprogress
+            timeStamp: 2020-03-11T04:55:04.582Z
+            note: testing api
+            createdBy: occ
+          - step: 2
+            status: customerreview
+            timeStamp: 2020-03-11T07:53:25.452Z
+            createdBy: occ
+          - step: 3
+            status: completed
+            timeStamp: 2020-03-11T08:09:09.034Z
+            note: Gangguan sudah kami tangani, terima kasih atas laporannya. Silahkan
+              cek attachment dibawah sebagai dokumentasi perbaikan
+            createdBy: occ
+          ticketCompleted: '{}'
+          bulk: reguler
+          ticketId: INA-1583734231978
+          categoryId: E003
+          status: completed
+        success: true
+    "400updateBodySubjectEmail":
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        code:
+          type: string
+          example: "400"
+        message:
+          type: string
+          example: gagal
+        data: {}
+    "401updateBodySubjectEmail":
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        code:
+          type: string
+          example: "401"
+        message:
+          type: string
+          example: Unautorized
+        data: {}
+    filterCustomer:
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: object
+          example:
+          - custAccntNum: "0004704776"
+            custAccntName: Jatis
+          - custAccntNum: "0004704777"
+            custAccntName: MDM
+          - custAccntNum: "0004704778"
+            custAccntName: IMS
+          - custAccntNum: "0004704779"
+            custAccntName: Mitracomm
+        meta:
+          type: string
+          example: success get customer for filter
+        code:
+          type: string
+          example: "200"
+        message:
+          type: string
+          example: success
+      example:
+        code: "200"
+        data:
+        - custAccntNum: "0004704776"
+          custAccntName: Jatis
+        - custAccntNum: "0004704777"
+          custAccntName: MDM
+        - custAccntNum: "0004704778"
+          custAccntName: IMS
+        - custAccntNum: "0004704779"
+          custAccntName: Mitracomm
+        success: true
+        meta: success get customer for filter
+        message: success
+    downloadListTicketFault:
+      properties:
+        fileName:
+          type: string
+          example: downloadListTicket.xlsx
+    responsesdownloadListTicketFault:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: success for download
+        code:
+          type: string
+          example: "200"
+        data:
+          $ref: '#/components/schemas/responsesdownloadListTicketFault_data'
+      example:
+        code: "200"
+        data:
+          url: http://tickets/ticket/v2/internal/downloadListTicketFault/page=1&size=10&status=onprogress&sort=asc&sortBy=ticketId&custAccntNum=0004704777&symptomId=SMS
+            FAULT&startDate=2020-04-08T14:48:00.000Z&endDate=2020-04-12T14:48:00.000Z
+        success: true
+        message: success for download
+    notifInternal:
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: object
+          example:
+          - notificationId: cfcef007-7427-4a22-aebf-5329a9bee02e
+            date: 2020-06-04T14:52:19.536Z
+            type: link-internal
+            title: Link Request
+            message: Anda mendapatkan Request Aktivasi Link dari Mitracomm Ekasarana
+            data:
+              orderNumber: RL-1591282339471
+              linkCategory:
+              - Regular
+              - Premium
+              status: customerrequest
+            isRead: false
+          - notificationId: 11d6f584-6bb9-4344-b6f6-6e42ea92fd27
+            date: 2020-06-04T14:31:36.246Z
+            type: link-internal
+            title: Link Request
+            message: Anda mendapatkan Request Aktivasi Link dari Mitracomm Ekasarana
+            data:
+              orderNumber: RL-1591281096234
+              linkCategory:
+              - Regular
+              - Premium
+              status: customerrequest
+            isRead: false
+          - notificationId: 61c00288-55dd-440f-bda6-d315baa6f95b
+            date: 2020-06-04T13:56:03.353Z
+            type: sender-id-internal
+            title: Sender Id Request
+            message: Anda mendapatkan Request Sender ID GRADE dari Mitracomm Ekasarana
+            data:
+              'senderTypeId:': MitracommEkasaranaGRADE1Reguler
+              senderId: GRADE
+              orderNumber: SID-1591278956593
+              linkCategoryTypeId: 1
+              status: checking
+              detailText: ""
+            isRead: false
+          - notificationId: 1358e6b8-386c-4f50-b120-03bfadf0892b
+            date: 2020-06-04T13:56:03.019Z
+            type: sender-id-internal
+            title: Sender Id Request
+            message: Anda mendapatkan Request Sender ID GRADE dari Mitracomm Ekasarana
+            data:
+              senderTypeId: MitracommEkasaranaGRADE1Premium
+              senderId: GRADE
+              orderNumber: SID-1591278956596
+              status: checking
+              detailText: ""
+            isRead: false
+          - notificationId: a9d73095-5d6b-496b-9670-5fc1a41f6bf7
+            date: 2020-06-04T03:10:55.849Z
+            type: lba-internal
+            title: LBA Request
+            message: Anda mendapatkan Request Aktivasi LBA untuk Sender ID vcars73
+              dari
+            data:
+              orderNumber: LBA-1591238506591
+              senderId: vcars73
+              status: checking
+            isRead: false
+          - notificationId: b214afb8-f722-49e1-ab4a-607517d715fd
+            date: 2020-06-04T03:10:55.845Z
+            type: lba-internal
+            title: LBA Request
+            message: Anda mendapatkan Request Aktivasi LBA untuk Sender ID vcars73
+              dari
+            data:
+              orderNumber: LBA-1591238388965
+              senderId: vcars73
+              status: checking
+            isRead: false
+        meta:
+          type: object
+          example:
+            page: 1
+            size: 50
+            totalData: 395
+            totalPage: 8
+            unreadNotif: 283
+        code:
+          type: string
+          example: "200"
+        message:
+          type: string
+          example: Success get data list notification for activate
+      example:
+        code: "200"
+        data:
+        - notificationId: cfcef007-7427-4a22-aebf-5329a9bee02e
+          date: 2020-06-04T14:52:19.536Z
+          type: link-internal
+          title: Link Request
+          message: Anda mendapatkan Request Aktivasi Link dari Mitracomm Ekasarana
+          data:
+            orderNumber: RL-1591282339471
+            linkCategory:
+            - Regular
+            - Premium
+            status: customerrequest
+          isRead: false
+        - notificationId: 11d6f584-6bb9-4344-b6f6-6e42ea92fd27
+          date: 2020-06-04T14:31:36.246Z
+          type: link-internal
+          title: Link Request
+          message: Anda mendapatkan Request Aktivasi Link dari Mitracomm Ekasarana
+          data:
+            orderNumber: RL-1591281096234
+            linkCategory:
+            - Regular
+            - Premium
+            status: customerrequest
+          isRead: false
+        - notificationId: 61c00288-55dd-440f-bda6-d315baa6f95b
+          date: 2020-06-04T13:56:03.353Z
+          type: sender-id-internal
+          title: Sender Id Request
+          message: Anda mendapatkan Request Sender ID GRADE dari Mitracomm Ekasarana
+          data:
+            'senderTypeId:': MitracommEkasaranaGRADE1Reguler
+            senderId: GRADE
+            orderNumber: SID-1591278956593
+            linkCategoryTypeId: 1
+            status: checking
+            detailText: ""
+          isRead: false
+        - notificationId: 1358e6b8-386c-4f50-b120-03bfadf0892b
+          date: 2020-06-04T13:56:03.019Z
+          type: sender-id-internal
+          title: Sender Id Request
+          message: Anda mendapatkan Request Sender ID GRADE dari Mitracomm Ekasarana
+          data:
+            senderTypeId: MitracommEkasaranaGRADE1Premium
+            senderId: GRADE
+            orderNumber: SID-1591278956596
+            status: checking
+            detailText: ""
+          isRead: false
+        - notificationId: a9d73095-5d6b-496b-9670-5fc1a41f6bf7
+          date: 2020-06-04T03:10:55.849Z
+          type: lba-internal
+          title: LBA Request
+          message: Anda mendapatkan Request Aktivasi LBA untuk Sender ID vcars73 dari
+          data:
+            orderNumber: LBA-1591238506591
+            senderId: vcars73
+            status: checking
+          isRead: false
+        - notificationId: b214afb8-f722-49e1-ab4a-607517d715fd
+          date: 2020-06-04T03:10:55.845Z
+          type: lba-internal
+          title: LBA Request
+          message: Anda mendapatkan Request Aktivasi LBA untuk Sender ID vcars73 dari
+          data:
+            orderNumber: LBA-1591238388965
+            senderId: vcars73
+            status: checking
+          isRead: false
+        success: true
+        meta:
+          page: 1
+          size: 50
+          totalData: 395
+          totalPage: 8
+          unreadNotif: 283
+        message: Success get data list notification for activate
+    customerTickets:
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: object
+          example:
+          - ticketId: INA-1589173024830
+            userId: 30000040703662
+            applicationType: 2
+            linkCategoryTypeId: 2
+            linkCategoryTypeName: Premium
+            senderTypeName: GRAB
+            status: checking
+            troubleCategory: DELIVERY REPORT
+            createdAt: 2020-05-11T04:57:04.849Z
+            updatedAt: 2020-05-11T04:57:04.849Z
+            rating:
+              value: 0
+              message: ""
+              dateTime: ""
+              createdBy: ""
+          - ticketId: INA-1589082673473
+            userId: 30000012343662
+            applicationType: 2
+            linkCategoryTypeId: 2
+            linkCategoryTypeName: Premium
+            senderTypeName: NXSMS
+            status: onprogress
+            troubleCategory: SMS FAULT
+            createdAt: 2020-05-10T03:51:13.485Z
+            updatedAt: 2020-05-12T03:33:49.612Z
+            rating:
+              value: 0
+              message: ""
+              dateTime: ""
+              createdBy: ""
+          - ticketId: INA-1588565932867
+            userId: 37002443663
+            applicationType: 2
+            linkCategoryTypeId: 2
+            linkCategoryTypeName: Premium
+            senderTypeName: Bukalapak
+            status: customerreview
+            troubleCategory: DELIVERY REPORT
+            createdAt: 2020-05-04T04:18:52.878Z
+            updatedAt: 2020-05-12T03:50:41.323Z
+            rating:
+              value: 0
+              message: ""
+              dateTime: ""
+              createdBy: ""
+          - ticketId: INA-1588210792578
+            applicationType: 2
+            categoryId: E003
+            ipCustomer: 192.168.19.19
+            logPingTrace: 123
+            description: Description report
+            status: onprogress
+            picName: Contact person
+            picPhoneNumber: "0812121212"
+            picEmail: contact@gmail.com
+            troubleCategory: Link Connectivity
+            createdAt: 2020-04-30T01:39:52.585Z
+            updatedAt: 2020-04-30T01:44:23.567Z
+            rating:
+              value: 0
+              message: ""
+              dateTime: ""
+              createdBy: ""
+          - ticketId: INA-1587574931390
+            userId: 37002443663
+            applicationType: 2
+            linkCategoryTypeId: 4
+            linkCategoryTypeName: Reguler
+            senderTypeName: Telegram
+            status: onprogress
+            troubleCategory: DELIVERY REPORT
+            createdAt: 2020-04-22T17:02:11.400Z
+            updatedAt: 2020-04-26T09:41:33.255Z
+            rating:
+              value: 0
+              message: ""
+              dateTime: ""
+              createdBy: ""
+          - ticketId: INA-1587414242604
+            userId: 30000041033660
+            applicationType: 2
+            linkCategoryTypeId: 3
+            linkCategoryTypeName: LBA
+            senderTypeName: OVO
+            status: checking
+            troubleCategory: DELIVERY REPORT
+            createdAt: 2020-04-20T20:24:02.950Z
+            updatedAt: 2020-04-20T20:24:02.950Z
+            rating:
+              value: 0
+              message: ""
+              dateTime: ""
+              createdBy: ""
+          - ticketId: INA-1587413684732
+            userId": 30000041033660
+            applicationType: 2
+            linkCategoryTypeId: 3
+            linkCategoryTypeName: Reguler
+            senderTypeName: OVO
+            status: checking
+            troubleCategory: DELIVERY REPORT
+            createdAt: 2020-04-20T20:14:44.746Z
+            updatedAt: 2020-04-20T20:14:44.746Z
+            rating:
+              value: 0
+              message: ""
+              dateTime: ""
+              createdBy: ""
+          - ticketId: INA-1587413634124
+            userId: 30000041033660
+            applicationType: 2
+            linkCategoryTypeId: 1
+            linkCategoryTypeName: Reguler
+            senderTypeName: OVO
+            status: onprogress
+            troubleCategory: DELIVERY REPORT
+            createdAt: 2020-04-20T20:13:54.136Z
+            updatedAt: 2020-04-20T20:13:54.136Z
+            rating:
+              value: 0
+              message: ""
+              dateTime: ""
+              createdBy: ""
+          - ticketId: INA-1585283966455
+            userId: 558837521031901
+            applicationType: 2
+            linkCategoryTypeId: 1
+            linkCategoryTypeName: Reguler
+            senderTypeName: AL AZHAR
+            status: onprogress
+            troubleCategory: SMS FAULT
+            createdAt: 2020-03-27T04:39:26.463Z
+            updatedAt: 2020-03-27T04:39:26.463Z
+            rating:
+              value: 0
+              message: ""
+              dateTime: ""
+              createdBy: ""
+          - ticketId: INA-1584012541108
+            userId: 30000012343661
+            applicationType: 2
+            linkCategoryTypeId: 1
+            linkCategoryTypeName: Reguler
+            senderTypeName: OLEHA
+            status: customerreview
+            troubleCategory: SMS FAULT
+            createdAt: 2020-03-12T11:29:01.123Z
+            updatedAt: 2020-03-12T11:29:01.123Z
+            rating:
+              value: 0
+              message: ""
+              dateTime: ""
+              createdBy: ""
+        meta:
+          type: object
+          example:
+            page: 1
+            size: 10
+            totalPages: 2
+            totalData: 14
+        code:
+          type: string
+          example: "200"
+        message:
+          type: string
+          example: Success get list ticket
+      example:
+        code: "200"
+        data:
+        - ticketId: INA-1589173024830
+          userId: 30000040703662
+          applicationType: 2
+          linkCategoryTypeId: 2
+          linkCategoryTypeName: Premium
+          senderTypeName: GRAB
+          status: checking
+          troubleCategory: DELIVERY REPORT
+          createdAt: 2020-05-11T04:57:04.849Z
+          updatedAt: 2020-05-11T04:57:04.849Z
+          rating:
+            value: 0
+            message: ""
+            dateTime: ""
+            createdBy: ""
+        - ticketId: INA-1589082673473
+          userId: 30000012343662
+          applicationType: 2
+          linkCategoryTypeId: 2
+          linkCategoryTypeName: Premium
+          senderTypeName: NXSMS
+          status: onprogress
+          troubleCategory: SMS FAULT
+          createdAt: 2020-05-10T03:51:13.485Z
+          updatedAt: 2020-05-12T03:33:49.612Z
+          rating:
+            value: 0
+            message: ""
+            dateTime: ""
+            createdBy: ""
+        - ticketId: INA-1588565932867
+          userId: 37002443663
+          applicationType: 2
+          linkCategoryTypeId: 2
+          linkCategoryTypeName: Premium
+          senderTypeName: Bukalapak
+          status: customerreview
+          troubleCategory: DELIVERY REPORT
+          createdAt: 2020-05-04T04:18:52.878Z
+          updatedAt: 2020-05-12T03:50:41.323Z
+          rating:
+            value: 0
+            message: ""
+            dateTime: ""
+            createdBy: ""
+        - ticketId: INA-1588210792578
+          applicationType: 2
+          categoryId: E003
+          ipCustomer: 192.168.19.19
+          logPingTrace: 123
+          description: Description report
+          status: onprogress
+          picName: Contact person
+          picPhoneNumber: "0812121212"
+          picEmail: contact@gmail.com
+          troubleCategory: Link Connectivity
+          createdAt: 2020-04-30T01:39:52.585Z
+          updatedAt: 2020-04-30T01:44:23.567Z
+          rating:
+            value: 0
+            message: ""
+            dateTime: ""
+            createdBy: ""
+        - ticketId: INA-1587574931390
+          userId: 37002443663
+          applicationType: 2
+          linkCategoryTypeId: 4
+          linkCategoryTypeName: Reguler
+          senderTypeName: Telegram
+          status: onprogress
+          troubleCategory: DELIVERY REPORT
+          createdAt: 2020-04-22T17:02:11.400Z
+          updatedAt: 2020-04-26T09:41:33.255Z
+          rating:
+            value: 0
+            message: ""
+            dateTime: ""
+            createdBy: ""
+        - ticketId: INA-1587414242604
+          userId: 30000041033660
+          applicationType: 2
+          linkCategoryTypeId: 3
+          linkCategoryTypeName: LBA
+          senderTypeName: OVO
+          status: checking
+          troubleCategory: DELIVERY REPORT
+          createdAt: 2020-04-20T20:24:02.950Z
+          updatedAt: 2020-04-20T20:24:02.950Z
+          rating:
+            value: 0
+            message: ""
+            dateTime: ""
+            createdBy: ""
+        - ticketId: INA-1587413684732
+          userId": 30000041033660
+          applicationType: 2
+          linkCategoryTypeId: 3
+          linkCategoryTypeName: Reguler
+          senderTypeName: OVO
+          status: checking
+          troubleCategory: DELIVERY REPORT
+          createdAt: 2020-04-20T20:14:44.746Z
+          updatedAt: 2020-04-20T20:14:44.746Z
+          rating:
+            value: 0
+            message: ""
+            dateTime: ""
+            createdBy: ""
+        - ticketId: INA-1587413634124
+          userId: 30000041033660
+          applicationType: 2
+          linkCategoryTypeId: 1
+          linkCategoryTypeName: Reguler
+          senderTypeName: OVO
+          status: onprogress
+          troubleCategory: DELIVERY REPORT
+          createdAt: 2020-04-20T20:13:54.136Z
+          updatedAt: 2020-04-20T20:13:54.136Z
+          rating:
+            value: 0
+            message: ""
+            dateTime: ""
+            createdBy: ""
+        - ticketId: INA-1585283966455
+          userId: 558837521031901
+          applicationType: 2
+          linkCategoryTypeId: 1
+          linkCategoryTypeName: Reguler
+          senderTypeName: AL AZHAR
+          status: onprogress
+          troubleCategory: SMS FAULT
+          createdAt: 2020-03-27T04:39:26.463Z
+          updatedAt: 2020-03-27T04:39:26.463Z
+          rating:
+            value: 0
+            message: ""
+            dateTime: ""
+            createdBy: ""
+        - ticketId: INA-1584012541108
+          userId: 30000012343661
+          applicationType: 2
+          linkCategoryTypeId: 1
+          linkCategoryTypeName: Reguler
+          senderTypeName: OLEHA
+          status: customerreview
+          troubleCategory: SMS FAULT
+          createdAt: 2020-03-12T11:29:01.123Z
+          updatedAt: 2020-03-12T11:29:01.123Z
+          rating:
+            value: 0
+            message: ""
+            dateTime: ""
+            createdBy: ""
+        success: true
+        meta:
+          page: 1
+          size: 10
+          totalPages: 2
+          totalData: 14
+        message: Success get list ticket
+    createTicket:
+      type: object
+      properties:
+        troubleType:
+          type: string
+          enum:
+          - Tidak menerima DLR
+          - Respon di DLR Undelivered
+          - SMS Masuk namun delay diterima pelanggan
+          - Pelanggan merasa tidak menerima SMS
+          - Mendapat respon error dari Bulk Apps
+        smsCategory:
+          type: integer
+          enum:
+          - 1
+          - 2
+        lbaCategory:
+          type: string
+          enum:
+          - LBA
+          - LBA TARGETED
+        applicationType:
+          type: string
+          example: "2"
+        categoryId:
+          type: string
+          example: E003
+        linkCategoryTypeId:
+          type: string
+          example: "2"
+        senderTypeId:
+          type: string
+          example: "2"
+        bNumber:
+          type: string
+          example: "0811234567"
+        dateTime:
+          type: string
+          example: 2019-12-16T08:09:09.034Z
+        operatorTypeId:
+          type: string
+          example: "1"
+        description:
+          type: string
+          example: Test Sms Fault Description
+        picName:
+          type: string
+          example: DDS Admin
+        picPhoneNumber:
+          type: string
+          example: "10812345687"
+        picEmail:
+          type: string
+          example: admin@ddstelkom.com
+        symptomId:
+          type: string
+          example: SMSFAULT
+        logRequest:
+          type: string
+        respond:
+          type: string
+    responsesCreateTicket:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: Your Request Has Been Processed
+        code:
+          type: string
+          example: "200"
+        data:
+          $ref: '#/components/schemas/responsesCreateTicket_data'
+      example:
+        code: "200"
+        data:
+          operationTypeId: "1"
+          applicationType: "2"
+          logPingTrace: logPingTrace
+          linkCategoryTypeId: "2"
+          senderTypeId: "2"
+          description: Test Sms Fault Description
+          lbaCategory: LBA
+          picPhoneNumber: "0812345687"
+          picName: DDS Admin
+          symptomId: SMSFAULT
+          serviceCategory: Sender ID
+          ipCustomer: 192.168.10.1
+          troubleOccurs:
+          - bNumber: "0811234567"
+            timeStamp: 2019-12-16T08:09:09.034Z
+            logRequest: ""
+            respond: ""
+          picEmail: admin@ddstelkom.co
+        success: true
+        message: Your Request Has Been Processed
+    "400Create":
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        code:
+          type: string
+          example: "400"
+        message:
+          type: string
+          example: Bad Request
+        data: {}
+    "401Create":
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        code:
+          type: string
+          example: "401"
+        message:
+          type: string
+          example: Upload Failed
+        data: {}
+    notifTicketAssuranceCustomer:
+      properties:
+        success:
+          type: boolean
+          example: true
+        code:
+          type: integer
+          example: 200
+        message:
+          type: string
+          example: Successfully get notif ticket assurance customer
+        data:
+          $ref: '#/components/schemas/notifTicketAssuranceCustomer_data'
+        meta:
+          type: object
+          example:
+            page: 1
+            size: 5
+            totalData: 554
+            totalPage: 111
+            unclickNotif: true
+            unreadNotif: 485
+      example:
+        code: 200
+        data:
+          summary:
+          - - notificationId: 519abe22-d6e9-4cf0-a3c0-078965a3817b
+              date: 2020-06-15T07:05:20.714Z
+              type: ticket-assurance-customer
+              title: Ticket Internal Request
+              message: 'Your Ticket INA-1592121889341 is being processed. Trouble
+                Type : Delivery Report'
+              data:
+                ticketId: INA-1592121889341
+                symptomId: Delivery Report
+                linkCategoryTypeName: Sender Id
+                senderTypeName: eatigo
+                status: customerreview
+                detailText: ""
+              custAccntNum: 1280510
+              isRead: false
+            - notificationId: f8d77a20-0559-45f3-98cf-01a7b44aad67
+              date: 2020-06-16T01:47:11.400Z
+              type: ticket-assurance-customer
+              title: Ticket Internal Request
+              message: 'Your Ticket INA-1592270595508 is being processed. Trouble
+                Type : Link Connectivity'
+              data:
+                ticketId: INA-1592270595508
+                symptomId: Link Connectivity
+                linkCategoryTypeName: Link Connectivity
+                senderTypeName: ""
+                status: onprogress
+                detailText: ""
+              custAccntNum: 1280510
+              isRead: false
+          - - notificationId: 519abe22-d6e9-4cf0-a3c0-078965a3817b
+              date: 2020-06-15T07:05:20.714Z
+              type: ticket-assurance-customer
+              title: Ticket Internal Request
+              message: 'Your Ticket INA-1592121889341 is being processed. Trouble
+                Type : Delivery Report'
+              data:
+                ticketId: INA-1592121889341
+                symptomId: Delivery Report
+                linkCategoryTypeName: Sender Id
+                senderTypeName: eatigo
+                status: customerreview
+                detailText: ""
+              custAccntNum: 1280510
+              isRead: false
+            - notificationId: f8d77a20-0559-45f3-98cf-01a7b44aad67
+              date: 2020-06-16T01:47:11.400Z
+              type: ticket-assurance-customer
+              title: Ticket Internal Request
+              message: 'Your Ticket INA-1592270595508 is being processed. Trouble
+                Type : Link Connectivity'
+              data:
+                ticketId: INA-1592270595508
+                symptomId: Link Connectivity
+                linkCategoryTypeName: Link Connectivity
+                senderTypeName: ""
+                status: onprogress
+                detailText: ""
+              custAccntNum: 1280510
+              isRead: false
+        success: true
+        meta:
+          page: 1
+          size: 5
+          totalData: 554
+          totalPage: 111
+          unclickNotif: true
+          unreadNotif: 485
+        message: Successfully get notif ticket assurance customer
+    notifTicketAllCustomer:
+      properties:
+        success:
+          type: boolean
+          example: true
+        code:
+          type: integer
+          example: 200
+        message:
+          type: string
+          example: Successfully get ticket-all-customer
+        data:
+          $ref: '#/components/schemas/notifTicketAllCustomer_data'
+        meta:
+          type: object
+          example:
+            page: 1
+            size: 5
+            totalData: 554
+            totalPage: 111
+            unclickNotif: true
+            unreadNotif: 485
+    detailListTicketCustomer:
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: object
+          example:
+            ticketId: INA-1578379038688
+            applicationType: 2
+            categoryName: E003
+            worklog:
+            - dateTime: 2020-01-07T06:37:18.694Z
+              note: ""
+              createdBy: Adithya Visnu
+              step: 0
+              status: checking
+              evidence_attachment:
+                fileName: minio-assurance-dev.telkomdigitalsolution.co/tdscustomerpublic/evidence-attachment-ticket/b040c8cd-9327-4894-a1ac-16fa4a2dd9b0-2019-12-13
+                  (1).png
+                fileType: image
+                timeStamp: 2020-04-08T14:48:00.000Z
+            - createdBy: ""
+              step: 1
+              status: onprogress
+              evidence_attachment:
+                fileName: minio-assurance-dev.telkomdigitalsolution.co/tdscustomerpublic/evidence-attachment-ticket/b040c8cd-9327-4894-a1ac-16fa4a2dd9b0-2019-12-13
+                  (1).png
+                fileType: image
+                timeStamp: 2020-04-08T14:48:00.000Z
+            - step: 2
+              status: customerreview
+              evidence_attachment:
+                fileName: minio-assurance-dev.telkomdigitalsolution.co/tdscustomerpublic/evidence-attachment-ticket/b040c8cd-9327-4894-a1ac-16fa4a2dd9b0-2019-12-13
+                  (1).png
+                fileType: image
+                timeStamp: 2020-04-08T14:48:00.000Z
+            - step: 3
+              status: completed
+            statusTicket: checking
+            provider: Indosat
+            createdAt: 2020-01-07T06:37:18.692Z
+            custAccntName: IMS
+            senderIdName: CICIL.co.id
+            evidence_attachment:
+              fileName: minio-assurance-dev.telkomdigitalsolution.co/tdscustomerpublic/evidence-attachment-ticket/b040c8cd-9327-4894-a1ac-16fa4a2dd9b0-2019-12-13
+                (1).png
+              fileType: image
+              timeStamp: 2020-04-08T14:48:00.000Z
+            troubleOccurs:
+              dateTime: 2020-01-07T06:37:05.481Z
+              logRequest: error
+              bNumber: "081434349343"
+              respond: error
+            updatedAt: 2020-01-07T06:37:18.692Z
+            rating:
+              type: string
+              example:
+                value: 0
+                message: ""
+                dateTime: ""
+                createdBy: ""
+            description: erro
+            picName: sidik hadiwijaya
+            picPhoneNumber: "081316050318"
+            picEmail: sdkhadiwijaya@gmail.com
+            senderTypeName: AKUGROSIR
+            linkCategoryTypeName: Reguler
+            symtompsName: Delivery Report
+        code:
+          type: string
+          example: "200"
+        message:
+          type: string
+          example: ere are the detail for INA-1578379038688
+      example:
+        code: "200"
+        data:
+          ticketId: INA-1578379038688
+          applicationType: 2
+          categoryName: E003
+          worklog:
+          - dateTime: 2020-01-07T06:37:18.694Z
+            note: ""
+            createdBy: Adithya Visnu
+            step: 0
+            status: checking
+            evidence_attachment:
+              fileName: minio-assurance-dev.telkomdigitalsolution.co/tdscustomerpublic/evidence-attachment-ticket/b040c8cd-9327-4894-a1ac-16fa4a2dd9b0-2019-12-13
+                (1).png
+              fileType: image
+              timeStamp: 2020-04-08T14:48:00.000Z
+          - createdBy: ""
+            step: 1
+            status: onprogress
+            evidence_attachment:
+              fileName: minio-assurance-dev.telkomdigitalsolution.co/tdscustomerpublic/evidence-attachment-ticket/b040c8cd-9327-4894-a1ac-16fa4a2dd9b0-2019-12-13
+                (1).png
+              fileType: image
+              timeStamp: 2020-04-08T14:48:00.000Z
+          - step: 2
+            status: customerreview
+            evidence_attachment:
+              fileName: minio-assurance-dev.telkomdigitalsolution.co/tdscustomerpublic/evidence-attachment-ticket/b040c8cd-9327-4894-a1ac-16fa4a2dd9b0-2019-12-13
+                (1).png
+              fileType: image
+              timeStamp: 2020-04-08T14:48:00.000Z
+          - step: 3
+            status: completed
+          statusTicket: checking
+          provider: Indosat
+          createdAt: 2020-01-07T06:37:18.692Z
+          custAccntName: IMS
+          senderIdName: CICIL.co.id
+          evidence_attachment:
+            fileName: minio-assurance-dev.telkomdigitalsolution.co/tdscustomerpublic/evidence-attachment-ticket/b040c8cd-9327-4894-a1ac-16fa4a2dd9b0-2019-12-13
+              (1).png
+            fileType: image
+            timeStamp: 2020-04-08T14:48:00.000Z
+          troubleOccurs:
+            dateTime: 2020-01-07T06:37:05.481Z
+            logRequest: error
+            bNumber: "081434349343"
+            respond: error
+          updatedAt: 2020-01-07T06:37:18.692Z
+          rating:
+            type: string
+            example:
+              value: 0
+              message: ""
+              dateTime: ""
+              createdBy: ""
+          description: erro
+          picName: sidik hadiwijaya
+          picPhoneNumber: "081316050318"
+          picEmail: sdkhadiwijaya@gmail.com
+          senderTypeName: AKUGROSIR
+          linkCategoryTypeName: Reguler
+          symtompsName: Delivery Report
+        success: true
+        message: ere are the detail for INA-1578379038688
+    listTroubleType:
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: array
+          example:
+          - Tidak Menerima Delivery Report
+          - Respon di Delivery Report Undelivered
+          - SMS Masuk namun Delay Diterima Pelanggan
+          - Pelanggan Tidak Menerima SMS
+          - Terdapat Respon Error dari Bulks Apps
+          - Lainnya
+          - LBA
+        code:
+          type: string
+          example: "200"
+        message:
+          type: string
+          example: success
+      example:
+        code: "200"
+        data:
+        - Tidak Menerima Delivery Report
+        - Respon di Delivery Report Undelivered
+        - SMS Masuk namun Delay Diterima Pelanggan
+        - Pelanggan Tidak Menerima SMS
+        - Terdapat Respon Error dari Bulks Apps
+        - Lainnya
+        - LBA
+        success: true
+        message: success
+    uploadFileAssurance:
+      properties:
+        fileName:
+          type: string
+          example: abcd.jpg
+    responsesuploadFileAssurance:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          $ref: '#/components/schemas/responsesuploadFileAssurance_data'
+        message:
+          type: string
+          example: success
+        code:
+          type: string
+          example: "200"
+      example:
+        code: "200"
+        data:
+          fileName: IMG_5614.JPG
+          fileUrl: http://minio-assurance-dev.telkomdigitalsolution.co/tdscustomerpublic/attach-lba-assurance/BANK
+            MANDIRI/IMG_5614.JPG
+        success: true
+        message: success
+    removeFileAssurance:
+      properties:
+        fileUrl:
+          type: string
+          example: http://minio-assurance-dev.telkomdigitalsolution.co/tdscustomerpublic/attach-lba-assurance/Jatis/[Kusonime]
+            Yuru Camp △ BD - 03.mkv_snapshot_18.02_[2020.01.16_07.33.04].jpg
+    responsesremoveFileAssurance:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          $ref: '#/components/schemas/responsesuploadFileAssurance_data'
+        message:
+          type: string
+          example: success
+        code:
+          type: string
+          example: "200"
+      example:
+        code: "200"
+        data:
+          fileName: IMG_5614.JPG
+          fileUrl: http://minio-assurance-dev.telkomdigitalsolution.co/tdscustomerpublic/attach-lba-assurance/BANK
+            MANDIRI/IMG_5614.JPG
+        success: true
+        message: success
+    updateFileAssurance:
+      properties:
+        fileName:
+          type: string
+          example: abcd.jpg
+        fileUrl:
+          type: string
+          example: http://minio-assurance-dev.telkomdigitalsolution.co/tdscustomerpublic/attach-lba-assurance/Jatis/[Kusonime]
+            Yuru Camp △ BD - 03.mkv_snapshot_18.02_[2020.01.16_07.33.04].jpg
+    responsesupdateFileAssurance:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          $ref: '#/components/schemas/responsesuploadFileAssurance_data'
+        message:
+          type: string
+          example: success
+        code:
+          type: string
+          example: "200"
+      example:
+        code: "200"
+        data:
+          fileName: IMG_5614.JPG
+          fileUrl: http://minio-assurance-dev.telkomdigitalsolution.co/tdscustomerpublic/attach-lba-assurance/BANK
+            MANDIRI/IMG_5614.JPG
+        success: true
+        message: success
+    generalProductListTickets:
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: object
+          example:
+          - id: 29155
+            sid: 2211
+            productName: ISDN Pra
+            productId: 37
+            description: Tes detaill
+            serviceId: 1111
+            createdDate: 2020/07/11 12:01:16
+            ticketStatus: 3
+            olo: GRATIKA
+            approvalDate: 2020/07/11 14:12:10
+            status: REJECTED
+            rNum: 1
+          - id: 29122
+            sid: 22220
+            productName: Metro Ethernet
+            trackId: MY-1594351039046280
+            description: Testing fitur get support
+            serviceId: 3700029-0022818533
+            createdDate: 2020/07/10 10:15:02
+            ticketStatus: 2
+            olo: GRATIKA
+            approvalDate: 2020/07/10 10:19:10
+            ticketNumber: IN70896750
+            rNum: 2
+          - id: 29043
+            sid: 22231
+            productName: Metro Ethernet
+            productId: 14
+            description: esting fitur
+            serviceId: 3700029-0023779545
+            createdDate: 2020/07/07 15:09:47
+            ticketStatus: 3
+            olo: GRATIKA
+            approvalDate: 2020/07/07 20:19:09
+            status: REJECTED
+            rNum: 3
+        meta:
+          type: object
+          example:
+            page: 1
+            size: 20
+            totalPages: 5
+            totalData: 50
+        code:
+          type: string
+          example: "200"
+        message:
+          type: string
+          example: Sukses
+      example:
+        code: "200"
+        data:
+        - id: 29155
+          sid: 2211
+          productName: ISDN Pra
+          productId: 37
+          description: Tes detaill
+          serviceId: 1111
+          createdDate: 2020/07/11 12:01:16
+          ticketStatus: 3
+          olo: GRATIKA
+          approvalDate: 2020/07/11 14:12:10
+          status: REJECTED
+          rNum: 1
+        - id: 29122
+          sid: 22220
+          productName: Metro Ethernet
+          trackId: MY-1594351039046280
+          description: Testing fitur get support
+          serviceId: 3700029-0022818533
+          createdDate: 2020/07/10 10:15:02
+          ticketStatus: 2
+          olo: GRATIKA
+          approvalDate: 2020/07/10 10:19:10
+          ticketNumber: IN70896750
+          rNum: 2
+        - id: 29043
+          sid: 22231
+          productName: Metro Ethernet
+          productId: 14
+          description: esting fitur
+          serviceId: 3700029-0023779545
+          createdDate: 2020/07/07 15:09:47
+          ticketStatus: 3
+          olo: GRATIKA
+          approvalDate: 2020/07/07 20:19:09
+          status: REJECTED
+          rNum: 3
+        success: true
+        meta:
+          page: 1
+          size: 20
+          totalPages: 5
+          totalData: 50
+        message: Sukses
+    submitTicket:
+      properties:
+        productId:
+          type: string
+          example: "103"
+        serviceId:
+          type: string
+          example: testSID
+        address:
+          type: string
+          example: test test address mycarrier
+        contactName:
+          type: string
+          example: test syahrul ras
+        mobile:
+          type: string
+          example: "082214899176"
+        secondaryContactName:
+          type: string
+          example: syahrul ras test
+        secondaryMobile:
+          type: string
+          example: "082214899176"
+        description:
+          type: string
+          example: test desc
+        productName:
+          type: string
+          example: Astinet
+    responsesSubmitTicket:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        code:
+          type: string
+          example: "200"
+        data: {}
+        message:
+          type: string
+          example: success
+      example:
+        code: "200"
+        data: ""
+        success: true
+        message: success
+    "400submitTicket":
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        code:
+          type: string
+          example: "400"
+        data: {}
+        message:
+          type: string
+          example: gagal
+    historyTicket:
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: object
+          example:
+          - class: INCIDENT
+            clientViewable: 0
+            createdAt: 2020-07-10T03:39:49.000Z
+            createdBy: 120188
+            description: actual solution SA_12858 by 120188
+            hasld: 0
+            langCode: EN
+            logType: AGENTNOTE
+            modifyBy: TELKOM
+            modifyDate: 10/07/2020 10:39:49
+            noTicket: IN70896750
+            rowstamp: 19444101584
+            siteId: REG-2
+            workLogId: 349918975
+          - class: INCIDENT
+            clientViewable: 0
+            createdAt: 2020-07-10T03:34:57.000Z
+            createdBy: 2020-07-10T03:40:57.000Z
+            description: Mohon resolve ticket untuk di closed, terima kasih
+            hasld: 0
+            langCode: EN
+            logType: AGENTNOTE
+            modifyBy: TELKOM
+            modifyDate: 10/07/2020 10:36:26
+            noTicket: IN70896750
+            rowstamp: 19444021861
+            siteId: REG-2
+            workLogId: 349916231
+        meta:
+          type: object
+          example:
+            page: 1
+            size: 20
+            totalPages: 5
+            totalData: 50
+        code:
+          type: string
+          example: "200"
+        message:
+          type: string
+          example: Sukses
+      example:
+        code: "200"
+        data:
+        - class: INCIDENT
+          clientViewable: 0
+          createdAt: 2020-07-10T03:39:49.000Z
+          createdBy: 120188
+          description: actual solution SA_12858 by 120188
+          hasld: 0
+          langCode: EN
+          logType: AGENTNOTE
+          modifyBy: TELKOM
+          modifyDate: 10/07/2020 10:39:49
+          noTicket: IN70896750
+          rowstamp: 19444101584
+          siteId: REG-2
+          workLogId: 349918975
+        - class: INCIDENT
+          clientViewable: 0
+          createdAt: 2020-07-10T03:34:57.000Z
+          createdBy: 2020-07-10T03:40:57.000Z
+          description: Mohon resolve ticket untuk di closed, terima kasih
+          hasld: 0
+          langCode: EN
+          logType: AGENTNOTE
+          modifyBy: TELKOM
+          modifyDate: 10/07/2020 10:36:26
+          noTicket: IN70896750
+          rowstamp: 19444021861
+          siteId: REG-2
+          workLogId: 349916231
+        success: true
+        meta:
+          page: 1
+          size: 20
+          totalPages: 5
+          totalData: 50
+        message: Sukses
+    cekTicketClosed:
+      properties:
+        username:
+          type: string
+          example: Syahrul21rasyid@gmail.com
+    responsescekTicketClosed:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        code:
+          type: string
+          example: "200"
+        data:
+          $ref: '#/components/schemas/responsescekTicketClosed_data'
+        message:
+          type: string
+          example: success
+      example:
+        code: "200"
+        data:
+          fileName: IMG_5614.JPG
+          username: Syahrul21rasyid@gmail.com
+        success: true
+        message: success
+    "400cekTicketClosed":
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        code:
+          type: string
+          example: "400"
+        data: {}
+        message:
+          type: string
+          example: gagal
+    createNps:
+      properties:
+        ticketId:
+          type: string
+          example: "23572"
+        ticketNumber:
+          type: string
+          example: IN59456448
+        tkPuas1:
+          type: integer
+          example: 1
+        rateScale:
+          type: integer
+          example: 9
+        comment:
+          type: string
+          example: nothing
+        troubleHeadline:
+          type: string
+          example: nothing
+        mostValue:
+          type: string
+          example: nothing
+        serviceId:
+          type: string
+          example: 3700029-0022818533
+    responsesCreateNps:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: object
+          example:
+            userId: 663041
+            ticketId: 23572
+            ticketNossa: IN59456448
+            trackId: MY-1576114760333157
+            channel: 27
+            serviceId: 3700029-0024859569
+            serviceName: ""
+            prod: ISDN Pra
+            description: A# 0711371459 tidak bisa akses menggunakan 12077 nada sibuk
+            progressTicket:
+            - code_tiket: 2
+              status: COMPLETED
+              datetime: 2019-12-12T08:48:36.000Z
+            - code_tiket: 2
+              status: ON PROGRESS
+              datetime: 2019-12-12T08:47:00.000Z
+            - code_tiket: 2
+              status: VALID
+              datetime: 2019-12-12T08:40:40.000Z
+            - code_tiket: 1
+              status: DRAFT
+              datetime: 2019-12-12T08:29:22.000Z
+            worklog:
+            - code_tiket: 2
+              status: Customer Notification
+              datetime: 2019-12-12T08:47:00.000Z
+            - code_tiket: 2
+              status: Ticket Analyzed
+              datetime: 2019-12-12T08:45:47.000Z
+            - code_tiket: 2
+              status: Pending Ticket Approval by Customer
+              datetime: 2019-12-11T17:16:56.000Z
+            - code_tiket: 2
+              status: Ticket Analyzed
+              datetime: 2019-12-11T17:02:20.000Z
+            - code_tiket: 2
+              status: Pending Ticket Approval by Customer
+              datetime: 2019-12-11T16:44:40.000Z
+            - code_tiket: 2
+              status: Ticket Analyzed
+              datetime: 2019-12-11T16:30:41.000Z
+            - code_tiket": 2
+              status: Pending Ticket Approval by Customer
+              datetime: 2019-12-11T15:33:44.000Z
+            - code_tiket: 2
+              status: Ticket Analyzed
+              datetime: 2019-12-11T13:16:16.000Z
+            status: 2
+            createdAt: 2019-12-12T08:29:22.000Z
+            picName: syahrulras
+            picPhoneNumber: "081324008164"
+            picSecondaryName: risky
+            picSecondaryPhoneNumber: "081366060551"
+            picEmail: syahrul21rasyid@gmail.com
+            serviceLocation: nul
+            rating:
+              tkPuas1: 1
+              rateScale: 9
+              comment: nothing
+              mostValue: nothing
+              troubleHeadline: nothing
+        code:
+          type: string
+          example: "200"
+        message:
+          type: string
+          example: Thank You for Rating Our Ticket
+      example:
+        code: "200"
+        data:
+          userId: 663041
+          ticketId: 23572
+          ticketNossa: IN59456448
+          trackId: MY-1576114760333157
+          channel: 27
+          serviceId: 3700029-0024859569
+          serviceName: ""
+          prod: ISDN Pra
+          description: A# 0711371459 tidak bisa akses menggunakan 12077 nada sibuk
+          progressTicket:
+          - code_tiket: 2
+            status: COMPLETED
+            datetime: 2019-12-12T08:48:36.000Z
+          - code_tiket: 2
+            status: ON PROGRESS
+            datetime: 2019-12-12T08:47:00.000Z
+          - code_tiket: 2
+            status: VALID
+            datetime: 2019-12-12T08:40:40.000Z
+          - code_tiket: 1
+            status: DRAFT
+            datetime: 2019-12-12T08:29:22.000Z
+          worklog:
+          - code_tiket: 2
+            status: Customer Notification
+            datetime: 2019-12-12T08:47:00.000Z
+          - code_tiket: 2
+            status: Ticket Analyzed
+            datetime: 2019-12-12T08:45:47.000Z
+          - code_tiket: 2
+            status: Pending Ticket Approval by Customer
+            datetime: 2019-12-11T17:16:56.000Z
+          - code_tiket: 2
+            status: Ticket Analyzed
+            datetime: 2019-12-11T17:02:20.000Z
+          - code_tiket: 2
+            status: Pending Ticket Approval by Customer
+            datetime: 2019-12-11T16:44:40.000Z
+          - code_tiket: 2
+            status: Ticket Analyzed
+            datetime: 2019-12-11T16:30:41.000Z
+          - code_tiket": 2
+            status: Pending Ticket Approval by Customer
+            datetime: 2019-12-11T15:33:44.000Z
+          - code_tiket: 2
+            status: Ticket Analyzed
+            datetime: 2019-12-11T13:16:16.000Z
+          status: 2
+          createdAt: 2019-12-12T08:29:22.000Z
+          picName: syahrulras
+          picPhoneNumber: "081324008164"
+          picSecondaryName: risky
+          picSecondaryPhoneNumber: "081366060551"
+          picEmail: syahrul21rasyid@gmail.com
+          serviceLocation: nul
+          rating:
+            tkPuas1: 1
+            rateScale: 9
+            comment: nothing
+            mostValue: nothing
+            troubleHeadline: nothing
+        success: true
+        message: Thank You for Rating Our Ticket
+    "400createNps":
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        code:
+          type: string
+          example: "400"
+        message:
+          type: string
+          example: gagal
+    CekNps:
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: object
+          example:
+          - USER_ID: 379333
+            NAME: Create Ticket
+            CUST_NAME: GRATIKA
+            EMAIL: syahrul21rasyid@gmail.com
+            NCLI: C3700029
+            SYMPTOM_NAME: Bandwidth tidak sesuai
+            PROD: VPN Lite
+            TRACK_ID: MY-1595311813650907
+            SERVICE_ID: 37000290023581864
+            ADDR: 'GRATIKA Letjen S. Parman,56,JAKARTA,POST CODE : 99999,03'
+            SYMPTOM: C_CONN_001_001_006
+            CONTACT_NAME: Tes NPS myCarrier
+            MOBILE: "081233785197"
+            SECONDARY_CONTACT_NAME: Tes NPS myCarrier
+            SECONDARY_MOBILE: "081233785197"
+            DESCRIPTION: Tes NPG GP myCarrier, mohon untuk di completekan
+            CREATED_DATE: 21-JUL-20
+            LINK_URL: https://myenterprise.telkom.co.id
+            TIKET_STATUS: 2
+            EMAIL_USER: syahrul21rasyid@gmail.com
+            SOLDTP: "0003700029"
+            OLO: GRATIKA
+            OCC_APPROVAL: 401192
+            APPROVAL_DATE: 21-JUL-20
+            ID: 29434
+            HARD_COMPLAINT: 1
+            FIRST_CALL_RESOLUTION: 2
+            URGENCY: 1
+            TIKET_NUMBER: IN71660651
+            CONTACT_APPROVAL: 401192@telkom.co.i
+            OCCNAME: ASEP NURDIN
+            ISOPENED: 0
+            IS_CLOSE: 0
+            DESCRIPTION_OCC: TES TIKET (DWS) GRATIKA_Tes NPG GP myCarrier
+        meta:
+          type: object
+          example:
+            page: 1
+            size: 20
+            totalPages: 5
+            totalData: 50
+        code:
+          type: string
+          example: "200"
+        message:
+          type: string
+          example: Your Request Has Been Processed
+      example:
+        code: "200"
+        data:
+        - USER_ID: 379333
+          NAME: Create Ticket
+          CUST_NAME: GRATIKA
+          EMAIL: syahrul21rasyid@gmail.com
+          NCLI: C3700029
+          SYMPTOM_NAME: Bandwidth tidak sesuai
+          PROD: VPN Lite
+          TRACK_ID: MY-1595311813650907
+          SERVICE_ID: 37000290023581864
+          ADDR: 'GRATIKA Letjen S. Parman,56,JAKARTA,POST CODE : 99999,03'
+          SYMPTOM: C_CONN_001_001_006
+          CONTACT_NAME: Tes NPS myCarrier
+          MOBILE: "081233785197"
+          SECONDARY_CONTACT_NAME: Tes NPS myCarrier
+          SECONDARY_MOBILE: "081233785197"
+          DESCRIPTION: Tes NPG GP myCarrier, mohon untuk di completekan
+          CREATED_DATE: 21-JUL-20
+          LINK_URL: https://myenterprise.telkom.co.id
+          TIKET_STATUS: 2
+          EMAIL_USER: syahrul21rasyid@gmail.com
+          SOLDTP: "0003700029"
+          OLO: GRATIKA
+          OCC_APPROVAL: 401192
+          APPROVAL_DATE: 21-JUL-20
+          ID: 29434
+          HARD_COMPLAINT: 1
+          FIRST_CALL_RESOLUTION: 2
+          URGENCY: 1
+          TIKET_NUMBER: IN71660651
+          CONTACT_APPROVAL: 401192@telkom.co.i
+          OCCNAME: ASEP NURDIN
+          ISOPENED: 0
+          IS_CLOSE: 0
+          DESCRIPTION_OCC: TES TIKET (DWS) GRATIKA_Tes NPG GP myCarrier
+        success: true
+        meta:
+          page: 1
+          size: 20
+          totalPages: 5
+          totalData: 50
+        message: Your Request Has Been Processed
+    bodyUpdateTicket:
+      properties:
+        status:
+          type: string
+          example: Reject
+        note:
+          type: string
+          example: ticket rejected
+    "200updateTicket":
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data: {}
+        message:
+          type: string
+          example: update ticket success
+        code:
+          type: string
+          example: "200"
+      example:
+        code: "200"
+        data: ""
+        success: true
+        message: update ticket success
+    "400updateTicket":
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        code:
+          type: string
+          example: "400"
+        message:
+          type: string
+        data: {}
+    "401updateTicket":
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        code:
+          type: string
+          example: "401"
+        message:
+          type: string
+          example: Unautorized
+    body:
+      type: object
+      properties:
+        evidenceFiles:
+          type: string
+          format: binary
+        evidenceToCustomer:
+          type: string
+          example: tes
+        status:
+          type: string
+          example: technical handling
+    body_1:
+      type: object
+      properties:
+        referenceId:
+          type: string
+          example: RFFID-SID Baru 1596006225665
+        status:
+          type: string
+          example: APPROVED
+        note:
+          type: string
+        ticketNumber:
+          type: string
+        trackId:
+          type: string
+    responsesUpdateStatus_data:
+      properties:
+        id:
+          type: string
+          example: 5e65ddd775faef0014f7ac97
+        applicationType:
+          type: string
+          example: "2"
+        ticketId:
+          type: string
+          example: INA-1583734231978
+        bulk:
+          type: string
+          example: reguler
+        ticketNossa:
+          type: string
+        userId:
+          type: string
+          example: "30000012343661"
+        categoryId:
+          type: string
+          example: E003
+        serviceId:
+          type: string
+        serviceName:
+          type: string
+        serviceLocation:
+          type: string
+        senderTypeId:
+          type: string
+        senderId:
+          type: string
+          example: "158"
+        senderTypeName:
+          type: string
+          example: OVO
+        linkCategoryTypeId:
+          type: string
+          example: "2"
+        linkCategoryTypeName:
+          type: string
+          example: Reguler
+        operatorTypeId:
+          type: string
+          example: "1"
+        operatorTypeName:
+          type: string
+          example: Telkomsel
+        ipWan:
+          type: string
+        symptomId:
+          type: string
+          example: SMSFAULT
+        complaint:
+          type: string
+        ticketPublish:
+          type: object
+          example: {}
+        worklog:
+          type: object
+          example:
+          - step: 0
+            status: checking
+            timeStamp: 2020-03-09T06:10:31.989Z
+            note: Tiket sedang di Analisa
+            createdBy: MDM
+          - step: 1
+            status: onprogress
+            timeStamp: 2020-03-11T04:55:04.582Z
+            note: testing api
+            createdBy: occ
+          - step: 2
+            status: customerreview
+            timeStamp: 2020-03-11T07:53:25.452Z
+            createdBy: occ
+          - step: 3
+            status: completed
+            timeStamp: 2020-03-11T08:09:09.034Z
+            note: Gangguan sudah kami tangani, terima kasih atas laporannya. Silahkan
+              cek attachment dibawah sebagai dokumentasi perbaikan
+            createdBy: occ
+        rejectReason:
+          type: string
+        ticketCompleted:
+          type: string
+          example: '{}'
+        status:
+          type: string
+          example: completed
+        picName:
+          type: string
+          example: GLE
+        picPhoneNumber:
+          type: string
+          example: "082116515155"
+        picEmail:
+          type: string
+          example: asdasdasd@gmail.com
+        troubleOccurs:
+          type: array
+          example:
+            bNumber: "082116515155"
+            timeStamp: 2020-03-08T06:10:13.744Z
+            logRequest: aksjdkajsd
+            respond: akjdkajdklajsdkjlakjsdlkajsd
+        description:
+          type: string
+          example: skldfskljfkls
+        logPingTrace:
+          type: string
+        ipCustomer:
+          type: string
+        createdAt:
+          type: string
+          example: 2020-03-09T06:10:31.987Z
+        updatedAt:
+          type: string
+          example: 2020-03-09T06:10:31.987Z
+        nipnas:
+          type: string
+          example: "3000001234"
+        custAccntNum:
+          type: string
+          example: "1280511"
+        updateBy:
+          type: string
+          example: occ
+        updateAt:
+          type: string
+          example: 2020-03-11T08:09:09.034Z
+        evidence_attachment:
+          type: string
+          example: '{"ticketId":"INA-1591075407221","fileName":"c297fc84-e29e-4b6f-b111-0a371ee9c606-3.pdf","fileUrl":"http://minio-assurance-dev.telkomdigitalsolution.co/tdscustomerpublic/evidence-attachment-ticket/c297fc84-e29e-4b6f-b111-0a371ee9c606-3.pdf","fileType":"pdf","evidenceToCustomer":"evi"}'
+      example:
+        applicationType: "2"
+        senderTypeName: OVO
+        ipWan: ipWan
+        operatorTypeName: Telkomsel
+        description: skldfskljfkls
+        updateAt: 2020-03-11T08:09:09.034Z
+        picName: GLE
+        symptomId: SMSFAULT
+        linkCategoryTypeName: Reguler
+        createdAt: 2020-03-09T06:10:31.987Z
+        senderId: "158"
+        rejectReason: rejectReason
+        picEmail: asdasdasd@gmail.com
+        custAccntNum: "1280511"
+        updateBy: occ
+        evidence_attachment: '{"ticketId":"INA-1591075407221","fileName":"c297fc84-e29e-4b6f-b111-0a371ee9c606-3.pdf","fileUrl":"http://minio-assurance-dev.telkomdigitalsolution.co/tdscustomerpublic/evidence-attachment-ticket/c297fc84-e29e-4b6f-b111-0a371ee9c606-3.pdf","fileType":"pdf","evidenceToCustomer":"evi"}'
+        nipnas: "3000001234"
+        id: 5e65ddd775faef0014f7ac97
+        serviceId: serviceId
+        updatedAt: 2020-03-09T06:10:31.987Z
+        serviceLocation: serviceLocation
+        logPingTrace: logPingTrace
+        linkCategoryTypeId: "2"
+        operatorTypeId: "1"
+        senderTypeId: senderTypeId
+        picPhoneNumber: "082116515155"
+        serviceName: serviceName
+        userId: "30000012343661"
+        ipCustomer: ipCustomer
+        ticketNossa: ticketNossa
+        troubleOccurs:
+          bNumber: "082116515155"
+          timeStamp: 2020-03-08T06:10:13.744Z
+          logRequest: aksjdkajsd
+          respond: akjdkajdklajsdkjlakjsdlkajsd
+        complaint: complaint
+        ticketPublish: {}
+        worklog:
+        - step: 0
+          status: checking
+          timeStamp: 2020-03-09T06:10:31.989Z
+          note: Tiket sedang di Analisa
+          createdBy: MDM
+        - step: 1
+          status: onprogress
+          timeStamp: 2020-03-11T04:55:04.582Z
+          note: testing api
+          createdBy: occ
+        - step: 2
+          status: customerreview
+          timeStamp: 2020-03-11T07:53:25.452Z
+          createdBy: occ
+        - step: 3
+          status: completed
+          timeStamp: 2020-03-11T08:09:09.034Z
+          note: Gangguan sudah kami tangani, terima kasih atas laporannya. Silahkan
+            cek attachment dibawah sebagai dokumentasi perbaikan
+          createdBy: occ
+        ticketCompleted: '{}'
+        bulk: reguler
+        ticketId: INA-1583734231978
+        categoryId: E003
+        status: completed
+    responsesdownloadListTicketFault_data:
+      properties:
+        url:
+          type: string
+          example: http://tickets/ticket/v2/internal/downloadListTicketFault/page=1&size=10&status=onprogress&sort=asc&sortBy=ticketId&custAccntNum=0004704777&symptomId=SMS
+            FAULT&startDate=2020-04-08T14:48:00.000Z&endDate=2020-04-12T14:48:00.000Z
+      example:
+        url: http://tickets/ticket/v2/internal/downloadListTicketFault/page=1&size=10&status=onprogress&sort=asc&sortBy=ticketId&custAccntNum=0004704777&symptomId=SMS
+          FAULT&startDate=2020-04-08T14:48:00.000Z&endDate=2020-04-12T14:48:00.000Z
+    responsesCreateTicket_data:
+      properties:
+        serviceCategory:
+          type: string
+          example: Sender ID
+        applicationType:
+          type: string
+          example: "2"
+        linkCategoryTypeId:
+          type: string
+          example: "2"
+        lbaCategory:
+          type: string
+          example: LBA
+        senderTypeId:
+          type: string
+          example: "2"
+        operationTypeId:
+          type: string
+          example: "1"
+        description:
+          type: string
+          example: Test Sms Fault Description
+        picName:
+          type: string
+          example: DDS Admin
+        picPhoneNumber:
+          type: string
+          example: "0812345687"
+        picEmail:
+          type: string
+          example: admin@ddstelkom.co
+        symptomId:
+          type: string
+          example: SMSFAULT
+        troubleOccurs:
+          type: object
+          example:
+          - bNumber: "0811234567"
+            timeStamp: 2019-12-16T08:09:09.034Z
+            logRequest: ""
+            respond: ""
+        ipCustomer:
+          type: string
+          example: 192.168.10.1
+        logPingTrace:
+          type: string
+      example:
+        operationTypeId: "1"
+        applicationType: "2"
+        logPingTrace: logPingTrace
+        linkCategoryTypeId: "2"
+        senderTypeId: "2"
+        description: Test Sms Fault Description
+        lbaCategory: LBA
+        picPhoneNumber: "0812345687"
+        picName: DDS Admin
+        symptomId: SMSFAULT
+        serviceCategory: Sender ID
+        ipCustomer: 192.168.10.1
+        troubleOccurs:
+        - bNumber: "0811234567"
+          timeStamp: 2019-12-16T08:09:09.034Z
+          logRequest: ""
+          respond: ""
+        picEmail: admin@ddstelkom.co
+    notifTicketAssuranceCustomer_data:
+      properties:
+        summary:
+          type: array
+          items:
+            type: object
+            example:
+            - notificationId: 519abe22-d6e9-4cf0-a3c0-078965a3817b
+              date: 2020-06-15T07:05:20.714Z
+              type: ticket-assurance-customer
+              title: Ticket Internal Request
+              message: 'Your Ticket INA-1592121889341 is being processed. Trouble
+                Type : Delivery Report'
+              data:
+                ticketId: INA-1592121889341
+                symptomId: Delivery Report
+                linkCategoryTypeName: Sender Id
+                senderTypeName: eatigo
+                status: customerreview
+                detailText: ""
+              custAccntNum: 1280510
+              isRead: false
+            - notificationId: f8d77a20-0559-45f3-98cf-01a7b44aad67
+              date: 2020-06-16T01:47:11.400Z
+              type: ticket-assurance-customer
+              title: Ticket Internal Request
+              message: 'Your Ticket INA-1592270595508 is being processed. Trouble
+                Type : Link Connectivity'
+              data:
+                ticketId: INA-1592270595508
+                symptomId: Link Connectivity
+                linkCategoryTypeName: Link Connectivity
+                senderTypeName: ""
+                status: onprogress
+                detailText: ""
+              custAccntNum: 1280510
+              isRead: false
+      example:
+        summary:
+        - - notificationId: 519abe22-d6e9-4cf0-a3c0-078965a3817b
+            date: 2020-06-15T07:05:20.714Z
+            type: ticket-assurance-customer
+            title: Ticket Internal Request
+            message: 'Your Ticket INA-1592121889341 is being processed. Trouble Type
+              : Delivery Report'
+            data:
+              ticketId: INA-1592121889341
+              symptomId: Delivery Report
+              linkCategoryTypeName: Sender Id
+              senderTypeName: eatigo
+              status: customerreview
+              detailText: ""
+            custAccntNum: 1280510
+            isRead: false
+          - notificationId: f8d77a20-0559-45f3-98cf-01a7b44aad67
+            date: 2020-06-16T01:47:11.400Z
+            type: ticket-assurance-customer
+            title: Ticket Internal Request
+            message: 'Your Ticket INA-1592270595508 is being processed. Trouble Type
+              : Link Connectivity'
+            data:
+              ticketId: INA-1592270595508
+              symptomId: Link Connectivity
+              linkCategoryTypeName: Link Connectivity
+              senderTypeName: ""
+              status: onprogress
+              detailText: ""
+            custAccntNum: 1280510
+            isRead: false
+        - - notificationId: 519abe22-d6e9-4cf0-a3c0-078965a3817b
+            date: 2020-06-15T07:05:20.714Z
+            type: ticket-assurance-customer
+            title: Ticket Internal Request
+            message: 'Your Ticket INA-1592121889341 is being processed. Trouble Type
+              : Delivery Report'
+            data:
+              ticketId: INA-1592121889341
+              symptomId: Delivery Report
+              linkCategoryTypeName: Sender Id
+              senderTypeName: eatigo
+              status: customerreview
+              detailText: ""
+            custAccntNum: 1280510
+            isRead: false
+          - notificationId: f8d77a20-0559-45f3-98cf-01a7b44aad67
+            date: 2020-06-16T01:47:11.400Z
+            type: ticket-assurance-customer
+            title: Ticket Internal Request
+            message: 'Your Ticket INA-1592270595508 is being processed. Trouble Type
+              : Link Connectivity'
+            data:
+              ticketId: INA-1592270595508
+              symptomId: Link Connectivity
+              linkCategoryTypeName: Link Connectivity
+              senderTypeName: ""
+              status: onprogress
+              detailText: ""
+            custAccntNum: 1280510
+            isRead: false
+    notifTicketAllCustomer_data:
+      properties:
+        summary:
+          type: array
+          items:
+            type: object
+            example:
+            - notificationId: 47d8a977-fcf2-435b-8320-61963c1a199c
+              date: 2020-06-15T07:05:20.713Z
+              type: ticket-all-customer
+              title: Ticket Internal Request
+              message: 'Your Ticket INA-1591856763611 is being processed. Trouble
+                Type : Link Connectivity'
+              data:
+                ticketId: INA-1591856763611
+                symptomId: Link Connectivity
+                linkCategoryTypeName: Link Connectivity
+                senderTypeName: ""
+                status: onprogress
+                detailText: ""
+              custAccntNum: 1280510
+              isRead: false
+            - notificationId: f202ea55-162b-42ba-9297-40799908fffd
+              date: 2020-06-19T09:06:43.548Z
+              type: ticket-all-customer
+              title: Ticket Internal Request
+              message: 'Your Ticket INA-1592549012210 is being processed. Trouble
+                Type : Delivery Report'
+              data:
+                ticketId: INA-1592549012210
+                symptomId: Delivery Report
+                linkCategoryTypeName: LBA
+                senderTypeName: Easycash
+                status: customerreview
+                detailText: ""
+              custAccntNum: 1280510
+              isRead: false
+    responsesuploadFileAssurance_data:
+      properties:
+        fileUrl:
+          type: string
+          example: http://minio-assurance-dev.telkomdigitalsolution.co/tdscustomerpublic/attach-lba-assurance/BANK
+            MANDIRI/IMG_5614.JPG
+        fileName:
+          type: string
+          example: IMG_5614.JPG
+      example:
+        fileName: IMG_5614.JPG
+        fileUrl: http://minio-assurance-dev.telkomdigitalsolution.co/tdscustomerpublic/attach-lba-assurance/BANK
+          MANDIRI/IMG_5614.JPG
+    responsescekTicketClosed_data:
+      properties:
+        username:
+          type: string
+          example: Syahrul21rasyid@gmail.com
+        fileName:
+          type: string
+          example: IMG_5614.JPG
+      example:
+        fileName: IMG_5614.JPG
+        username: Syahrul21rasyid@gmail.com
